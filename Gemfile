@@ -37,6 +37,7 @@ end
 
 group :test do
 	gem 'capybara', '1.1.2'
+	gem 'factory_girl_rails', '4.1.0'
 	#system-dependent gems
 	gem 'rb-inotify', '~> 0.9'
 	gem 'libnotify', '0.5.9'
