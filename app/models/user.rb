@@ -22,5 +22,6 @@ class User < ActiveRecord::Base
   			uniqueness: { case_sensitive: false }
   validates :password, presence: true, length: { minimum: 6 }
   validates :password_confirmation, presence: true
+  after_validation { self.errors.messages.delete(:password_digest) } #used to hide digest error; user does not need to see this
 
 end
