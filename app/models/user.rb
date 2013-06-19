@@ -15,6 +15,7 @@ class User < ActiveRecord::Base
 
   # before_save { |user| user.email = email.downcase }
   before_save { email.downcase! } #same as the above line
+  before_save :create_remember_token 
 
   validates :name, presence: true, length: { maximum: 50 }
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
@@ -24,4 +25,10 @@ class User < ActiveRecord::Base
   validates :password_confirmation, presence: true
   after_validation { self.errors.messages.delete(:password_digest) } #used to hide digest error; user does not need to see this
 
+private
+
+  def create_remember_token
+    self.remember_token = SecureRandom.urlsafe_base64
+  end
+  
 end
