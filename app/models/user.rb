@@ -33,7 +33,7 @@ class User < ActiveRecord::Base
   after_validation { self.errors.messages.delete(:password_digest) } #used to hide digest error; user does not need to see this
 
   def feed
-    Micropost.where("user_id = ?", id)
+    Micropost.from_users_followed_by(self)
   end
 
   def following?(other_user)
